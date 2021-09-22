@@ -20,7 +20,7 @@ const fetchCurrencies = async (count) => {
 
 const Currencies = ({simplified}) => {
     const count = simplified ? 5 : 15;
-    const { data: currencies, isLoading } = useQuery(['currencies', count], () => fetchCurrencies(count), { chacheTime: 90000000000, keepPreviousData: true}
+    const { data: currencies, isLoading } = useQuery(['currencies', count], () => fetchCurrencies(count), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true}
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
 
@@ -45,7 +45,7 @@ const Currencies = ({simplified}) => {
             <Row gutter={[32, 32]} className="crypto-card-container">
                 {cryptos?.map((elem) => (
                     <Col xs={24} sm={12} lg={6} className="crypto-card" key={elem.id}>
-                        <Link to={`/crypto/${elem.id}`}>
+                        <Link to={{pathname: `/crypto/${elem.id}`, state: {coin: elem}}}>
                             <Card
                                 title={`${elem.rank}. ${elem.name}`}
                                 extra={<img className='crypto-image' src={elem.iconUrl} />}

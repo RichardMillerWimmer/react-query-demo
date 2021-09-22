@@ -3,8 +3,6 @@ import './App.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import Navbar from './components/Navbar';
-import Portfolio from './components/Portfolio';
-import Currencies from './components/Currencies';
 import routes from './routes';
 
 const queryClient = new QueryClient();
