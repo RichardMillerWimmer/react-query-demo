@@ -9,9 +9,8 @@ const port = 5050;
 app.use(express.json());
 
 //controller endpoints
-app.get('/api/todos', ctrl.getTodos);
-app.post('/api/todos', ctrl.addTodo);
-app.put('/api/todos', ctrl.editTodo);
-app.delete('/api/todos', ctrl.deleteTodo);
+app.get('/api/todos', ctrl.getParty);
+app.post('/api/todos', ctrl.addChar);
+app.delete('/api/todos', ctrl.deleteChar);
 
 app.listen(port, () => console.log(`server is running on port ${port}`))
