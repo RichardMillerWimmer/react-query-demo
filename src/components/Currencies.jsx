@@ -20,7 +20,7 @@ const fetchCurrencies = async (count) => {
 
 const Currencies = ({simplified}) => {
     const count = simplified ? 5 : 15;
-    const { data: currencies, isLoading } = useQuery(['currencies', count], () => fetchCurrencies(count)
+    const { data: currencies, isLoading } = useQuery(['currencies', count], () => fetchCurrencies(count), { chacheTime: 90000000000, keepPreviousData: true}
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
 
