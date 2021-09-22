@@ -1,18 +1,18 @@
-const party = [];
+const currencies = [];
 
 module.exports = {
-    getParty: (req, res) => {
-        res.status(200).send(party)
+    getCurrencies: (req, res) => {
+        res.status(200).send(currencies)
     },
-    addChar: (req, res) => {
-        const {newCharacter} = req.body;
-        party.push(newCharacter);
-        res.status(200).send(party);
+    addCurrency: (req, res) => {
+        const {newCurrency} = req.body;
+        currencies.push(newCurrency);
+        res.status(200).send(currencies);
     },
-    deleteChar: (req, res) => {
+    deleteCurrency: (req, res) => {
         const {id} = req.params;
-        const characterRemove = party.findIndex(char => char.id === +id);
-        party.splice(characterRemove, 1);
-        res.status(200).send(party);
+        const currencyRemove = currencies.findIndex(coin => coin.id === +id);
+        currencies.splice(currencyRemove, 1);
+        res.status(200).send(currencies);
     }
 };
