@@ -14,7 +14,7 @@ module.exports = {
     },
     editTodo: (req, res) => {
         const {id} = req.params;
-        const {name, desription, complete} = req.body;
+        const {name, description, complete} = req.body;
         todoIndex = todoList.findIndex(todo => todo.id === +id);
         todoList[todoIndex] = {name, description, complete}
         res.status(200).send(todoList);
@@ -25,4 +25,4 @@ module.exports = {
         todoList.splice(todoIndex, 1);
         res.status(200).send(todoList);
     }
-}
+};
