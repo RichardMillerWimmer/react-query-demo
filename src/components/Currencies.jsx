@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Row, Col, Card, Input } from 'antd';
 import { Link } from 'react-router-dom';
@@ -22,11 +22,17 @@ const Currencies = ({simplified}) => {
     const count = simplified ? 5 : 15;
     const { data: currencies, isLoading } = useQuery(['currencies', count], () => fetchCurrencies(count)
     )
+    const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
+
     const [searchTerm, setSearchTerm] = useState('');
 
     // const currencies = currencies?.data?.data?.coins
     console.log(currencies?.data?.data?.coins)
 
+    useEffect(() => {
+        const filteredData = currencies?.data?.data?.coins.filter((elem) => elem.name.toLowerCase().includes(searchTerm))
+        setCryptos(filteredData)
+    }, [currencies, searchTerm])
     
     
     return (
@@ -37,7 +43,7 @@ const Currencies = ({simplified}) => {
                 </div>
             )}
             <Row gutter={[32, 32]} className="crypto-card-container">
-                {currencies?.data?.data?.coins.map((elem) => (
+                {cryptos?.map((elem) => (
                     <Col xs={24} sm={12} lg={6} className="crypto-card" key={elem.id}>
                         <Link to={`/crypto/${elem.id}`}>
                             <Card
