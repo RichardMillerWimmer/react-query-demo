@@ -1,34 +1,23 @@
 import './App.css';
 
-import routes from './routes'
-import { Navbar, Footer } from './components/index';
-
-import { Layout } from 'antd';
-
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import Navbar from './components/Navbar';
+import Portfolio from './components/Portfolio';
+import Currencies from './components/Currencies';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-    <div className="app">
-      <div className='navbar'>
+      <div className="app">
         <Navbar />
+        <h1>React-Query App</h1>
+        <Currencies />
+        <Portfolio />
       </div>
-      <div className='main'>
-        <Layout>
-          <div className='routes'>
-            {routes}
-          </div>
-        </Layout>
-        <div className='footer'>
-          <Footer />
-        </div>
-      </div>
-    </div>
-    <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
