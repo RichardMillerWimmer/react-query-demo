@@ -4,8 +4,11 @@ import { useQuery } from 'react-query';
 
 const fetchPortfolio = async () => {
     const res = axios.get('/api/portfolio')
-    console.log(res)
-    return res
+    .then((res) => {
+        console.log(res)
+    })
+    // console.log(res)
+    // return res
 }
 
 const Portfolio = () => {

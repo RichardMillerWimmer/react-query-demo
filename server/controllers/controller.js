@@ -5,19 +5,23 @@ const {REACT_APP_RAPID_API_HOST,  REACT_APP_RAPID_API_KEY} = process.env;
 
 const portfolio = ['1'];
 
-const callPortfolio = () => {
-    let fullPortfolio = [];
-    portfolio.forEach(coin => {
+function callPortfolio() {
+    let fullPortfolio = portfolio.map(coin => {
         axios.get(`https://coinranking.p.rapidapi.com/coin/${coin}`, {headers: {
             'x-rapidapi-host': REACT_APP_RAPID_API_HOST,
             'x-rapidapi-key': REACT_APP_RAPID_API_KEY
         }})
         .then((res) => {
-            console.log('fullPorfolio call', res.data)
-            fullPortfolio.push(res.data)
+            console.log('fullPorfolio call', res.data.data)
+            fullPortfolio.push(res.data.data)
         })
     })
-    return fullPortfolio
+    Promise.all(fullPortfolio)
+    .then(res => {
+        console.log('fullPorfolio', res)
+
+    })
+    // return fullPortfolio
 }
 
 module.exports = {
