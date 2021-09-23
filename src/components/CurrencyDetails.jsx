@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import millify from 'millify';
-import { Col, Row, Typography } from 'antd';
+import { Col, Typography } from 'antd';
 
 
 import { DollarCircleOutlined, TrophyOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
@@ -25,7 +25,7 @@ const fetchCurrencies = async (coinId) => {
 const CurrencyDetails = (props) => {
     const coin = props.location.state.coin;
     const coinId = props.location.state.coin.id;
-    const { data: coinHistory, isLoading } = useQuery(['coinHistory', coinId], () => fetchCurrencies(coinId), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true }
+    const { data: coinHistory } = useQuery(['coinHistory', coinId], () => fetchCurrencies(coinId), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true }
     )
 
 

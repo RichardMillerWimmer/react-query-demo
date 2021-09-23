@@ -24,6 +24,7 @@ const News = () => {
     console.log('news:', news?.data?.value)
     return (
         <div>
+            <h2>News</h2>
             <Row gutter={[24, 24]}>
                 {news?.data?.value.map((news, i) => (
                     <Col xs={24} sm={12} lg={8} key={i}>

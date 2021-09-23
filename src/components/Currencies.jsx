@@ -20,7 +20,7 @@ const fetchCurrencies = async (count) => {
 
 const Currencies = ({simplified}) => {
     const count = simplified ? 5 : 15;
-    const { data: currencies, isLoading } = useQuery(['currencies', count], () => fetchCurrencies(count), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true}
+    const { data: currencies } = useQuery(['currencies', count], () => fetchCurrencies(count), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true}
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
 
@@ -37,6 +37,7 @@ const Currencies = ({simplified}) => {
     
     return (
         <div>
+            <h2>Cryptocurrencies</h2>
             {!simplified && (
                 <div className='search-crypto'>
                     <Input placeholder='Search Cryptocurencies' onChange={(e) => setSearchTerm(e.target.value)} />
@@ -48,7 +49,7 @@ const Currencies = ({simplified}) => {
                         <Link to={{pathname: `/crypto/${elem.id}`, state: {coin: elem}}}>
                             <Card
                                 title={`${elem.rank}. ${elem.name}`}
-                                extra={<img className='crypto-image' src={elem.iconUrl} />}
+                                extra={<img className='crypto-image' src={elem.iconUrl} alt='crypto coin' />}
                                 hoverable
                             >
                                 <p>Price: {millify(elem.price)}</p>
