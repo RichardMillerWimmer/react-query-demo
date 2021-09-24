@@ -30,7 +30,7 @@ const CurrencyDetails = (props) => {
 
 
     // console.log(coinHistory)
-    console.log(coin)
+    // console.log("coin", coin)
 
     const stats = [
         { title: 'Price to USD', value: `$ ${coin.price && millify(coin.price)}`, icon: <DollarCircleOutlined /> },
@@ -41,7 +41,11 @@ const CurrencyDetails = (props) => {
     ];
 
     const addToPortfolio = () => {
-        // const coinToAdd = { coin.id,  }
+        console.log(coin)
+        axios.post('/api/portfolio', coin)
+        .then((res) => {
+            console.log(res)
+        })
     }
 
     return (

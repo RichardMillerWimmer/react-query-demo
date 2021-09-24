@@ -1,9 +1,9 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const { REACT_APP_RAPID_API_HOST, REACT_APP_RAPID_API_KEY } = process.env;
+// const { REACT_APP_RAPID_API_HOST, REACT_APP_RAPID_API_KEY } = process.env;
 
-const portfolio = ["razxDUgYGNAdQ&", "Qwsogvtv82FCd"];
+const portfolio = [];
 
 async function callPortfolio() {
     // portArr = `uuids[]=${portfolio.join('uuids[]=')}`
@@ -46,13 +46,16 @@ async function callPortfolio() {
 
 module.exports = {
     getPortfolio: async (req, res) => {
-        const portfolioRes = await callPortfolio();
+        // const portfolioRes = await callPortfolio();
         // console.log("getPortfolio call", portfolioRes);
-        res.status(200).send(portfolioRes);
+        res.status(200).send(portfolio);
     },
     addCurrency: (req, res) => {
-        const { newCurrency } = req.body;
-        portfolio.push(newCurrency);
+        const coin = req.body;
+        console.log(req.body);
+        console.log(coin);
+        portfolio.push(coin);
+        console.log(portfolio);
         res.status(200).send(portfolio);
     },
     deleteCurrency: (req, res) => {
