@@ -52,15 +52,17 @@ module.exports = {
     },
     addCurrency: (req, res) => {
         const coin = req.body;
-        console.log(req.body);
-        console.log(coin);
+        // console.log(req.body);
+        // console.log(coin);
         portfolio.push(coin);
-        console.log(portfolio);
+        // console.log(portfolio);
         res.status(200).send(portfolio);
     },
     deleteCurrency: (req, res) => {
         const { id } = req.params;
+        // console.log('id', id)
         const currencyRemove = portfolio.findIndex((coin) => coin.id === +id);
+        // console.log('curencyRemove', currencyRemove)
         portfolio.splice(currencyRemove, 1);
         res.status(200).send(portfolio);
     },

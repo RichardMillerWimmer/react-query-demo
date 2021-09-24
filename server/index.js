@@ -11,6 +11,6 @@ app.use(express.json());
 //controller endpoints
 app.get('/api/portfolio', ctrl.getPortfolio);
 app.post('/api/portfolio', ctrl.addCurrency);
-app.delete('/api/portfolio', ctrl.deleteCurrency);
+app.delete('/api/portfolio/:id', ctrl.deleteCurrency);
 
 app.listen(port, () => console.log(`server is running on port ${port}`))
