@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import millify from 'millify';
-import { Col, Typography } from 'antd';
+import { Col, Typography, Button } from 'antd';
 
 
 import { DollarCircleOutlined, TrophyOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
@@ -29,8 +29,8 @@ const CurrencyDetails = (props) => {
     )
 
 
-    console.log(coinHistory)
-    // console.log(coin)
+    // console.log(coinHistory)
+    console.log(coin)
 
     const stats = [
         { title: 'Price to USD', value: `$ ${coin.price && millify(coin.price)}`, icon: <DollarCircleOutlined /> },
@@ -40,8 +40,13 @@ const CurrencyDetails = (props) => {
         { title: 'All-time-high(daily avg.)', value: `$ ${millify(coin.allTimeHigh.price)}`, icon: <TrophyOutlined /> },
     ];
 
+    const addToPortfolio = () => {
+        // const coinToAdd = { coin.id,  }
+    }
+
     return (
         <div>
+            <Button onClick={() => addToPortfolio()}>Add to Portolfio</Button>
             <Col className='coin-heading-container'>
                 <Title level={2} className='coin-name'>
                     {coin.name} ({coin.slug})

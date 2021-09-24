@@ -3,21 +3,29 @@ const axios = require("axios");
 
 const { REACT_APP_RAPID_API_HOST, REACT_APP_RAPID_API_KEY } = process.env;
 
-const portfolio = ["1"];
+const portfolio = ["razxDUgYGNAdQ&", "Qwsogvtv82FCd"];
 
 async function callPortfolio() {
-    let fullPortfolio = await Promise.all(
-        portfolio.map((coin) => {
-            axios.get(`https://coinranking.p.rapidapi.com/coin/${coin}`, {
-                headers: {
-                    "x-rapidapi-host": REACT_APP_RAPID_API_HOST,
-                    "x-rapidapi-key": REACT_APP_RAPID_API_KEY,
-                },
-            });
-        })
-    );
-    console.log(fullPortfolio);
-    return fullPortfolio;
+    // portArr = `uuids[]=${portfolio.join('uuids[]=')}`
+    // let fullPorfolio = axios.get(`https://api.coinranking.com/v2/coins?${portArr}`)
+    // .then((res) => {
+    //     console.log(res)
+    // })
+    // return fullPorfolio
+
+    
+    // let mapped = (
+    //     portfolio.map((coin) => {
+    //         return axios.get(`https://coinranking.p.rapidapi.com/coin/${coin}`, {
+    //             headers: {
+    //                 "x-rapidapi-host": REACT_APP_RAPID_API_HOST,
+    //                 "x-rapidapi-key": REACT_APP_RAPID_API_KEY,
+    //             },
+    //         });
+    //     })
+    // );
+    // const fullPorfolio = await Promise.all(mapped)
+    // return fullPorfolio
     // let fullPortfolio = portfolio.map(coin => {
     //     axios.get(`https://coinranking.p.rapidapi.com/coin/${coin}`, {headers: {
     //         'x-rapidapi-host': REACT_APP_RAPID_API_HOST,
@@ -39,7 +47,7 @@ async function callPortfolio() {
 module.exports = {
     getPortfolio: async (req, res) => {
         const portfolioRes = await callPortfolio();
-        console.log("getPortfolio call", portfolioRes);
+        // console.log("getPortfolio call", portfolioRes);
         res.status(200).send(portfolioRes);
     },
     addCurrency: (req, res) => {
