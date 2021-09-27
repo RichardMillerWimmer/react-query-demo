@@ -14,7 +14,7 @@ const fetchPortfolio = async () => {
     return res
 }
 const removeCoin = async (id) => {
-    console.log('remove hit')
+    // console.log('remove hit')
     const res = await axios.delete(`/api/portfolio/${id}`)
     console.log('mutation res', res)
     return res
@@ -26,6 +26,7 @@ const Portfolio = () => {
     const mutation = useMutation(removeCoin, {
         onSuccess: data => {
             queryClient.setQueryData(['portfolio', data])
+            queryClient.invalidateQueries('portfolio')
         }
     })
     
@@ -39,7 +40,7 @@ const Portfolio = () => {
             <Row gutter={[32, 32]} className="crypto-card-container">
                 {portfolio?.data?.map((elem) => (
                     <Col xs={24} sm={12} lg={6} className="crypto-card" key={elem.id}>
-                        <Link to={{pathname: `/crypto/${elem.id}`, state: {coin: elem}}}>
+                        {/* <Link to={{pathname: `/crypto/${elem.id}`, state: {coin: elem}}}> */}
                             <Card
                                 title={`${elem.rank}. ${elem.name}`}
                                 extra={<img className='crypto-image' src={elem.iconUrl} alt='crypto coin' />}
@@ -48,9 +49,9 @@ const Portfolio = () => {
                                 <p>Price: {millify(elem.price)}</p>
                                 <p>Market Cap: {millify(elem.marketCap)}</p>
                                 <p>Change: {millify(elem.change)}%</p>
-                                <Button onClick={() => mutation.mutate(elem.id)}>Remove</Button>
+                                <Button onClick={() => mutation.mutateAsync(elem.id)}>Remove</Button>
                             </Card>
-                        </Link>
+                        {/* </Link> */}
                     </Col>
                 ))}
             </Row>
