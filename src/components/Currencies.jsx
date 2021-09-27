@@ -1,38 +1,47 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Row, Col, Card, Input } from 'antd';
+import { Row, Col, Card, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import millify from 'millify';
 
 import { useQuery } from 'react-query';
 
-const fetchCurrencies = async (count) => {
-    const res = await axios.get(`https://coinranking1.p.rapidapi.com/coins?limit=${count}`, {
+const fetchCurrencies = async (count, offset) => {
+    const res = await axios.get(`https://coinranking1.p.rapidapi.com/coins?limit=${count}&offset=${offset}`, {
         headers: {
             'x-rapidapi-host': process.env.REACT_APP_RAPID_API_HOST,
             'x-rapidapi-key': process.env.REACT_APP_RAPID_API_KEY
         }
     }
     )
-    console.log('fetch')
+    // console.log('fetch')
     return res
 };
 
 const Currencies = ({simplified}) => {
-    const count = simplified ? 5 : 15;
-    const { data: currencies } = useQuery(['currencies', count], () => fetchCurrencies(count), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true}
+    const [offset, setOffset] = useState(0);
+    const count = simplified ? 4 : 15;
+    const { data: currencies } = useQuery(['currencies', count, offset], () => fetchCurrencies(count, offset), { staleTime: 5000, chacheTime: 300000, keepPreviousData: true}
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
 
     const [searchTerm, setSearchTerm] = useState('');
 
     // const currencies = currencies?.data?.data?.coins
-    console.log(currencies?.data?.data?.coins)
+    // console.log(currencies?.data?.data?.coins)
 
     useEffect(() => {
         const filteredData = currencies?.data?.data?.coins.filter((elem) => elem.name.toLowerCase().includes(searchTerm))
         setCryptos(filteredData)
-    }, [currencies, searchTerm])
+    }, [currencies, searchTerm]);
+
+    const pageUp = () => {
+        setOffset(prevOffset => Math.min(prevOffset + 15))
+    };
+    
+    const pageDown =() => {
+        setOffset(prevOffset => Math.min(prevOffset - 15))
+    };
     
     
     return (
@@ -60,6 +69,8 @@ const Currencies = ({simplified}) => {
                     </Col>
                 ))}
             </Row>
+            <Button onClick={() => pageDown()} disabled={offset === 0}>Previous</Button>
+            <Button onClick={() => pageUp()}>Next</Button>
         </div>
     )
 }

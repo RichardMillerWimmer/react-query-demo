@@ -25,8 +25,8 @@ const Portfolio = () => {
     const {data: portfolio, status} = useQuery('portfolio', () => fetchPortfolio())
     const mutation = useMutation(removeCoin, {
         onSuccess: data => {
-            queryClient.setQueryData(['portfolio', data])
             queryClient.invalidateQueries('portfolio')
+            queryClient.setQueryData(['portfolio', data])
         }
     })
     
