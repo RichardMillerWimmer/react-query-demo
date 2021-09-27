@@ -22,6 +22,7 @@ a:hover{
 .app{
   display: flex;
   overflow: hidden;
+  padding: 5px;
 }
 
 .navbar{
@@ -378,4 +379,13 @@ color: red;
   flex-direction: column;
   padding: 20px;
   align-items: center;
+}
+
+.nav-link {
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+.navbar {
+  text-align: center;
 }

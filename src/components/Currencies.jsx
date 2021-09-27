@@ -14,7 +14,6 @@ const fetchCurrencies = async (count, offset) => {
         }
     }
     )
-    // console.log('fetch')
     return res
 };
 
@@ -24,11 +23,7 @@ const Currencies = ({ simplified }) => {
     const { data: currencies } = useQuery(['currencies', count, offset], () => fetchCurrencies(count, offset), { staleTime: 5000, chacheTime: 300000, keepPreviousData: true }
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
-
     const [searchTerm, setSearchTerm] = useState('');
-
-    // const currencies = currencies?.data?.data?.coins
-    // console.log(currencies?.data?.data?.coins)
 
     useEffect(() => {
         const filteredData = currencies?.data?.data?.coins.filter((elem) => elem.name.toLowerCase().includes(searchTerm))

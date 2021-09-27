@@ -18,7 +18,6 @@ const fetchCurrencies = async (coinId) => {
         }
     }
     )
-    console.log('fetch')
     return res
 };
 
@@ -27,10 +26,6 @@ const CurrencyDetails = (props) => {
     const coinId = props.location.state.coin.id;
     const { data: coinHistory } = useQuery(['coinHistory', coinId], () => fetchCurrencies(coinId), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true }
     )
-
-
-    // console.log(coinHistory)
-    // console.log("coin", coin)
 
     const stats = [
         { title: 'Price to USD', value: `$ ${coin.price && millify(coin.price)}`, icon: <DollarCircleOutlined /> },
@@ -41,10 +36,9 @@ const CurrencyDetails = (props) => {
     ];
 
     const addToPortfolio = () => {
-        console.log(coin)
         axios.post('/api/portfolio', coin)
         .then((res) => {
-            console.log(res)
+            // console.log(res)
         })
     }
 

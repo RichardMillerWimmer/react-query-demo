@@ -9,13 +9,10 @@ import { useQueryClient } from 'react-query';
 
 const fetchPortfolio = async () => {
     const res = axios.get('/api/portfolio')
-    // console.log(res)
     return res
 }
 const removeCoin = async (id) => {
-    // console.log('remove hit')
     const res = await axios.delete(`/api/portfolio/${id}`)
-    console.log('mutation res', res)
     return res
 }
 
@@ -29,17 +26,11 @@ const Portfolio = () => {
         }
     })
     
-    // console.log('portfolio', portfolio)
-    // console.log('portfolio', status)
-
-    
-
     return (
         <div>
             <Row gutter={[32, 32]} className="crypto-card-container">
                 {portfolio?.data?.map((elem) => (
                     <Col xs={24} sm={12} lg={6} className="crypto-card" key={elem.id}>
-                        {/* <Link to={{pathname: `/crypto/${elem.id}`, state: {coin: elem}}}> */}
                             <Card
                                 title={`${elem.rank}. ${elem.name}`}
                                 extra={<img className='crypto-image' src={elem.iconUrl} alt='crypto coin' />}
@@ -50,11 +41,9 @@ const Portfolio = () => {
                                 <p>Change: {millify(elem.change)}%</p>
                                 <Button onClick={() => mutation.mutateAsync(elem.id)}>Remove</Button>
                             </Card>
-                        {/* </Link> */}
                     </Col>
                 ))}
             </Row>
-
         </div>
     )
 }
