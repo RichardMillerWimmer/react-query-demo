@@ -3,10 +3,11 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import moment from 'moment';
 import { Row, Col, Typography, Avatar, Card } from 'antd';
+import Loader from './Loader';
 
 const { Title, Text } = Typography;
 
-const fetchNews = async (count) => {
+const fetchNews = async () => {
     const res = await axios.get(`https://bing-news-search1.p.rapidapi.com/news/search?q=Cryptocurrency&safeSearch=Off&textFormat=Raw&freshness=Day&count=5`, {
         headers: {
             'x-rapidapi-host': process.env.REACT_APP_RAPID_API_NEWS_HOST,
@@ -19,9 +20,10 @@ const fetchNews = async (count) => {
 };
 
 const News = () => {
-    const { data: news } = useQuery('news', () => fetchNews(), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true })
+    const { data: news, isLoading } = useQuery('news', () => fetchNews(), { staleTime: 600000, keepPreviousData: true, retry: 3 })
 
-    console.log('news:', news?.data?.value)
+    if(isLoading) return <Loader />
+    
     return (
         <div>
             <h2>News</h2>

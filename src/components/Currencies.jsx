@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Row, Col, Card, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import millify from 'millify';
+import Loader from './Loader';
 
 import { useQuery } from 'react-query';
 
@@ -20,7 +21,7 @@ const fetchCurrencies = async (count, offset) => {
 const Currencies = ({ simplified }) => {
     const [offset, setOffset] = useState(0);
     const count = simplified ? 4 : 15;
-    const { data: currencies } = useQuery(['currencies', count, offset], () => fetchCurrencies(count, offset), { staleTime: 5000, chacheTime: 300000, keepPreviousData: true }
+    const { data: currencies, isLoading } = useQuery(['currencies', count, offset], () => fetchCurrencies(count, offset), { staleTime: 60000, chacheTime: 300000 }
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
     const [searchTerm, setSearchTerm] = useState('');
@@ -38,6 +39,7 @@ const Currencies = ({ simplified }) => {
         setOffset(prevOffset => Math.min(prevOffset - 15))
     };
 
+    if(isLoading) return <Loader />
 
     return (
         <div>

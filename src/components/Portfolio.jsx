@@ -4,6 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import { Row, Col, Card, Button } from 'antd';
 import millify from 'millify';
 import { useQueryClient } from 'react-query';
+import Loader from './Loader';
 
 
 
@@ -18,7 +19,7 @@ const removeCoin = async (id) => {
 
 const Portfolio = () => {
     const queryClient = useQueryClient();
-    const {data: portfolio, status} = useQuery('portfolio', () => fetchPortfolio())
+    const {data: portfolio, isFetching} = useQuery('portfolio', () => fetchPortfolio())
     const mutation = useMutation(removeCoin, {
         onSuccess: data => {
             queryClient.invalidateQueries('portfolio')
@@ -26,6 +27,8 @@ const Portfolio = () => {
         }
     })
     
+    if(isFetching) return <Loader />
+
     return (
         <div>
             <Row gutter={[32, 32]} className="crypto-card-container">

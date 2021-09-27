@@ -24,7 +24,7 @@ const fetchCurrencies = async (coinId) => {
 const CurrencyDetails = (props) => {
     const coin = props.location.state.coin;
     const coinId = props.location.state.coin.id;
-    const { data: coinHistory } = useQuery(['coinHistory', coinId], () => fetchCurrencies(coinId), { staleTime: Infinity, chacheTime: 90000000000, keepPreviousData: true }
+    const { data: coinHistory } = useQuery(['coinHistory', coinId], () => fetchCurrencies(coinId), { staleTime: 1000*60*60*6 }
     )
 
     const stats = [
