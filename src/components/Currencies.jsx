@@ -21,7 +21,7 @@ const fetchCurrencies = async (count, offset) => {
 const Currencies = ({ simplified }) => {
     const [offset, setOffset] = useState(0);
     const count = simplified ? 4 : 15;
-    const { data: currencies, isLoading } = useQuery(['currencies', count, offset], () => fetchCurrencies(count, offset), { staleTime: 60000, chacheTime: 300000 }
+    const { data: currencies, isLoading, isError } = useQuery(['currencies', count, offset], () => fetchCurrencies(count, offset), { staleTime: 60000, refetchOnWindowFocus: false, refetchOnMount: true, retry: 3 }
     )
     const [cryptos, setCryptos] = useState(currencies?.data?.data?.coins);
     const [searchTerm, setSearchTerm] = useState('');
@@ -40,6 +40,8 @@ const Currencies = ({ simplified }) => {
     };
 
     if(isLoading) return <Loader />
+    
+    if(isError) return <div>Sorry something went wrong...</div>
 
     return (
         <div>

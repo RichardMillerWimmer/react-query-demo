@@ -60,7 +60,7 @@ const CurrencyDetails = (props) => {
                         <p>An overview showing the stats of {coin.name}.</p>
                     </Col>
                     {stats.map(({ icon, title, value }) => (
-                        <Col className='coin-stats'>
+                        <Col key={title} className='coin-stats'>
                             <Col className='coin-stats-name'>
                                 <Text>{icon}</Text>
                                 <Text>{title}</Text>

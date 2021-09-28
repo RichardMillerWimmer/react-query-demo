@@ -15,7 +15,6 @@ const fetchNews = async () => {
         }
     }
     )
-    console.log('fetch')
     return res
 };
 
